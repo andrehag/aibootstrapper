@@ -1,0 +1,22 @@
+{
+  "name": "autobootstrapper",
+  "version": "1.0.0",
+  "description": "Automatically bootstrap a new project",
+  "main": "lib/index.js",
+  "author": "Andreas Hage",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "go": "node ./lib/index.js",
+    "bgo": "yarn build && yarn go"
+  },
+  "dependencies": {
+    "openai": "^3.2.1",
+    "typescript": "^5.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11"
+  }
+}
