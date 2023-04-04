@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "author": "Andreas Hage",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
@@ -13,10 +14,14 @@
     "bgo": "yarn build && yarn go"
   },
   "dependencies": {
+    "ink": "^4.1.0",
     "openai": "^3.2.1",
+    "react": "^18.2.0",
     "typescript": "^5.0.3"
   },
   "devDependencies": {
-    "@types/node": "^18.15.11"
+    "@types/ink": "^2.0.3",
+    "@types/node": "^18.15.11",
+    "@types/react": "^18.0.32"
   }
 }

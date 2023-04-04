@@ -5,11 +5,13 @@ import * as path from "path";
 export async function writeToFile(
   filename: string,
   content: string
-): Promise<void> {
+): Promise<string | undefined> {
   try {
+    createFoldersIfNotExist(filename);
     await fs.writeFile(filename, content);
+    return undefined;
   } catch (err) {
-    console.log("Unable to write to file ", filename);
+    return `Unable to write to file: ${filename}`;
   }
 }
 
