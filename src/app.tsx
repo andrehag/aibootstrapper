@@ -3,7 +3,7 @@ import { render, Box, Text, useInput, useApp, Spacer } from "ink";
 import { useStateMachine, StateMachineConfig } from "./statemachine.js";
 import { TextInput } from "./components/TextInput.js";
 import { File, FileList } from "./components/FileList.js";
-import { generateCodeFile, generateFileList } from "./aigenerator.js";
+import { createAIGenerator } from "./aigenerator.js";
 import { writeToFile } from "./files.js";
 
 type States = "InputName" | "InputDescription" | "Output";
@@ -107,7 +107,9 @@ async function generate(
   updateFiles: (files: File[]) => void,
   error: (error: string) => void
 ) {
-  const fileNames = await generateFileList(desc);
+  const generator = createAIGenerator();
+
+  const fileNames = await generator.generateFileList(desc);
   if (!fileNames) {
     error("Failed when trying to generate a list of files");
     return;
@@ -122,7 +124,7 @@ async function generate(
     files = updateFileState(files, f.fileName, "active");
     updateFiles(files);
 
-    const contents = await generateCodeFile(f.fileName, name, desc);
+    const contents = await generator.generateCodeFile(f.fileName, name, desc);
     if (contents) {
       const err = await writeToFile(f.fileName, contents);
       if (!err) {
