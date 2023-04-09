@@ -8,10 +8,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js",
-    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
-    "go": "node ./lib/index.js",
-    "bgo": "yarn build && yarn go"
+    "dev": "nodemon --watch src -e ts --exec \"tsc -p ./tsconfig.json\"",
+    "go": "node ./lib/index.js"
   },
   "dependencies": {
     "ink": "^4.1.0",
@@ -22,6 +20,7 @@
   "devDependencies": {
     "@types/ink": "^2.0.3",
     "@types/node": "^18.15.11",
-    "@types/react": "^18.0.32"
+    "@types/react": "^18.0.32",
+    "nodemon": "^2.0.22"
   }
 }
