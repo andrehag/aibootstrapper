@@ -9,7 +9,7 @@ function createCodeFilePrompt(
   projectName: string,
   projectDescription: string
 ): string {
-  return `In your response output only code. Do not place any text before or after the response. Generate the contents of the file named ${file} suitable for this project: Project name: ${projectName}, Project description: ${projectDescription}`;
+  return `In your response output only code. Do not place any text before or after the response. Do not use any markup. Generate the contents of the file named ${file} suitable for this project: Project name: ${projectName}, Project description: ${projectDescription}`;
 }
 
 async function generate(messages: ChatCompletionRequestMessage[]) {
