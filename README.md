@@ -15,4 +15,5 @@ This is an experiment and it's pretty rough around the edges.
 It doesnt' have any overwrite-protection or path-argument yet, so if you run it in a folder with contents, your risk it being overwritten.
 
 # API-key
-It looks for an api-key in the environment-variable `OPENAI-API-KEY`. Instructions for how to get one can be found in the (OpenAI developer documentation)[https://platform.openai.com/docs/api-reference/introduction]
+It looks for an api-key in the environment-variable `OPENAI-API-KEY`. Instructions for how to get one can be found in the [OpenAI developer documentation](https://platform.openai.com/docs/api-reference/introduction)
+
