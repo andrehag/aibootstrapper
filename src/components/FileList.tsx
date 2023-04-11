@@ -11,6 +11,7 @@ const Icons = {
 export type File = {
   fileName: string;
   state: "waiting" | "active" | "done" | "error";
+  message?: string;
 };
 
 export type Props = {
@@ -21,7 +22,7 @@ export const FileList = ({ files }: Props) => {
   const fileElements = files?.map((v, idx) => (
     <Text key={idx}>
       {v.fileName}
-      {" " + Icons[v.state]}
+      {` ${Icons[v.state]} ${v.message || ""}`}
     </Text>
   ));
 

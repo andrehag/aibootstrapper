@@ -118,25 +118,29 @@ async function generate(
   let files = fileNames.map((v): File => ({ fileName: v, state: "waiting" }));
   updateFiles(files);
 
-  //   for (let f of files) {
   for (let i = 0; i < files.length; i++) {
     const f = files[i];
     files = updateFileState(files, f.fileName, "active");
     updateFiles(files);
 
-    const contents = await generator.generateCodeFile(f.fileName, name, desc);
-    if (contents) {
-      const err = await writeToFile(f.fileName, contents);
+    const response = await generator.generateCodeFile(f.fileName, name, desc);
+    if (response.errorCode) {
+      files = updateFileState(
+        files,
+        f.fileName,
+        "error",
+        `Error in response: ${response.errorCode}`
+      );
+      updateFiles(files);
+    } else if (response.responseText) {
+      const err = await writeToFile(f.fileName, response.responseText);
       if (!err) {
         files = updateFileState(files, f.fileName, "done");
         updateFiles(files);
       } else {
-        files = updateFileState(files, f.fileName, "error");
+        files = updateFileState(files, f.fileName, "error", "File error");
         updateFiles(files);
       }
-    } else {
-      files = updateFileState(files, f.fileName, "error");
-      updateFiles(files);
     }
   }
 }
@@ -144,10 +148,11 @@ async function generate(
 function updateFileState(
   files: File[],
   fileName: string,
-  newState: "waiting" | "active" | "done" | "error"
+  newState: "waiting" | "active" | "done" | "error",
+  msg?: string
 ): File[] {
   return files.map((f) =>
-    f.fileName === fileName ? { ...f, state: newState } : f
+    f.fileName === fileName ? { ...f, state: newState, message: msg } : f
   );
 }
 
